@@ -16,10 +16,10 @@ This document lists our Linux Mint related repositories and projects.
 
 **Installation:**
 ```bash
-git clone https://github.com/catsanzsh/M3M31.0.git
+git clone https://github.com/zshdevopscatftw/M3M31.0.git
 cd M3M31.0
 sudo apt-get update
-sudo apt-get install [list of dependencies]
+# Install dependencies as specified in the repository
 ./m3m31.0
 ```
 
