@@ -129,7 +129,11 @@ class CloudflareAgent:
                 params['type'] = record_type.upper()
             
             records_response = self.cf.dns.records.list(zone_id=zone_id, **params)
-            records = [vars(r) for r in list(records_response)]
+            # Use model_dump() if available (Pydantic v2), fallback to vars()
+            records = [
+                record.model_dump() if hasattr(record, 'model_dump') else vars(record) 
+                for record in records_response
+            ]
             self.log_success(f"Found {len(records)} DNS record(s)")
             return records
         except Exception as e:
@@ -275,7 +279,11 @@ class CloudflareAgent:
             zone_id = zone.id
             self.log_info(f"Fetching firewall rules for {domain}...")
             rules_response = self.cf.firewall.rules.list(zone_id=zone_id)
-            rules = [vars(r) for r in list(rules_response)]
+            # Use model_dump() if available (Pydantic v2), fallback to vars()
+            rules = [
+                rule.model_dump() if hasattr(rule, 'model_dump') else vars(rule)
+                for rule in rules_response
+            ]
             self.log_success(f"Found {len(rules)} firewall rule(s)")
             return rules
         except Exception as e:
@@ -330,9 +338,12 @@ class CloudflareAgent:
             zone_id = zone.id
             self.log_info(f"Fetching zone settings for {domain}...")
             settings_response = self.cf.zones.settings.list(zone_id=zone_id)
-            settings = list(settings_response)
-            settings_dict = {s.id: vars(s) for s in settings}
-            self.log_success(f"Retrieved {len(settings)} settings")
+            # Efficiently create dictionary in one pass
+            settings_dict = {
+                s.id: (s.model_dump() if hasattr(s, 'model_dump') else vars(s))
+                for s in settings_response
+            }
+            self.log_success(f"Retrieved {len(settings_dict)} settings")
             return settings_dict
         except Exception as e:
             self.log_error(f"Failed to fetch zone settings: {e}")
