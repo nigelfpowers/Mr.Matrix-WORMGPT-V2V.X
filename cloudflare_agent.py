@@ -388,7 +388,7 @@ class CloudflareAgent:
             return True
         
         # Create DNS record
-        match = re.search(r'(?:create|add) (?:dns )?record (?:for |on )?([a-zA-Z0-9.-]+) (?:type |)([A-Z]+) (?:name |)([a-zA-Z0-9.-@]+) (?:content |pointing to |)([a-zA-Z0-9.:/-]+)', command_lower)
+        match = re.search(r'(?:create|add) (?:dns )?record (?:for |on )?([a-zA-Z0-9.-]+) (?:type |)([A-Z]+) (?:name |)([a-zA-Z0-9.@-]+) (?:content |pointing to |)([a-zA-Z0-9.:/\-]+)', command_lower)
         if match:
             domain, record_type, name, content = match.groups()
             return self.create_dns_record(domain, record_type, name, content)
