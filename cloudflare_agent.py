@@ -9,7 +9,7 @@ import json
 import os
 import re
 from typing import Dict, List, Optional, Any
-import CloudFlare
+from cloudflare import Cloudflare
 from colorama import Fore, Style, init
 
 # Initialize colorama
@@ -34,9 +34,9 @@ class CloudflareAgent:
         
         # Initialize Cloudflare API client
         if self.api_token:
-            self.cf = CloudFlare.CloudFlare(token=self.api_token)
+            self.cf = Cloudflare(api_token=self.api_token)
         elif self.email and self.api_key:
-            self.cf = CloudFlare.CloudFlare(email=self.email, key=self.api_key)
+            self.cf = Cloudflare(api_email=self.email, api_key=self.api_key)
         else:
             raise ValueError("No Cloudflare credentials provided. Set CLOUDFLARE_API_TOKEN environment variable or pass credentials.")
         
@@ -71,15 +71,16 @@ class CloudflareAgent:
         if not self.zones_cache or force_refresh:
             try:
                 self.log_info("Fetching zones from Cloudflare...")
-                zones = self.cf.zones.get()
-                self.zones_cache = {zone['name']: zone for zone in zones}
+                zones_response = self.cf.zones.list()
+                zones = list(zones_response)
+                self.zones_cache = {zone.name: zone for zone in zones}
                 self.log_success(f"Found {len(zones)} zone(s)")
-            except CloudFlare.exceptions.CloudFlareAPIError as e:
+            except Exception as e:
                 self.log_error(f"Failed to fetch zones: {e}")
                 return []
         return list(self.zones_cache.values())
     
-    def find_zone(self, domain: str) -> Optional[Dict]:
+    def find_zone(self, domain: str) -> Optional[Any]:
         """
         Find a zone by domain name.
         
@@ -87,18 +88,18 @@ class CloudflareAgent:
             domain: Domain name to search for
             
         Returns:
-            Zone dictionary if found, None otherwise
+            Zone object if found, None otherwise
         """
         zones = self.get_zones()
         
         # Exact match
         for zone in zones:
-            if zone['name'].lower() == domain.lower():
+            if zone.name.lower() == domain.lower():
                 return zone
         
         # Partial match
         for zone in zones:
-            if domain.lower() in zone['name'].lower():
+            if domain.lower() in zone.name.lower():
                 return zone
         
         return None
@@ -120,17 +121,18 @@ class CloudflareAgent:
             return []
         
         try:
-            zone_id = zone['id']
+            zone_id = zone.id
             self.log_info(f"Fetching DNS records for {domain}...")
             
             params = {}
             if record_type:
                 params['type'] = record_type.upper()
             
-            records = self.cf.zones.dns_records.get(zone_id, params=params)
+            records_response = self.cf.dns.records.list(zone_id=zone_id, **params)
+            records = [vars(r) for r in list(records_response)]
             self.log_success(f"Found {len(records)} DNS record(s)")
             return records
-        except CloudFlare.exceptions.CloudFlareAPIError as e:
+        except Exception as e:
             self.log_error(f"Failed to fetch DNS records: {e}")
             return []
     
@@ -156,7 +158,7 @@ class CloudflareAgent:
             return False
         
         try:
-            zone_id = zone['id']
+            zone_id = zone.id
             
             # Handle @ for root domain
             if name == '@':
@@ -173,10 +175,10 @@ class CloudflareAgent:
             }
             
             self.log_info(f"Creating DNS record: {name} ({record_type}) -> {content}")
-            result = self.cf.zones.dns_records.post(zone_id, data=record_data)
-            self.log_success(f"DNS record created successfully: {result['id']}")
+            result = self.cf.dns.records.create(zone_id=zone_id, **record_data)
+            self.log_success(f"DNS record created successfully: {result.id}")
             return True
-        except CloudFlare.exceptions.CloudFlareAPIError as e:
+        except Exception as e:
             self.log_error(f"Failed to create DNS record: {e}")
             return False
     
@@ -198,7 +200,7 @@ class CloudflareAgent:
             return False
         
         try:
-            zone_id = zone['id']
+            zone_id = zone.id
             records = self.list_dns_records(domain, record_type)
             
             # Find matching record
@@ -214,10 +216,10 @@ class CloudflareAgent:
                 return False
             
             self.log_info(f"Deleting DNS record: {target_record['name']} ({target_record['type']})")
-            self.cf.zones.dns_records.delete(zone_id, target_record['id'])
+            self.cf.dns.records.delete(zone_id=zone_id, dns_record_id=target_record['id'])
             self.log_success("DNS record deleted successfully")
             return True
-        except CloudFlare.exceptions.CloudFlareAPIError as e:
+        except Exception as e:
             self.log_error(f"Failed to delete DNS record: {e}")
             return False
     
@@ -238,7 +240,7 @@ class CloudflareAgent:
             return False
         
         try:
-            zone_id = zone['id']
+            zone_id = zone.id
             
             if files:
                 self.log_info(f"Purging specific files from cache for {domain}...")
@@ -247,10 +249,10 @@ class CloudflareAgent:
                 self.log_info(f"Purging all cache for {domain}...")
                 data = {'purge_everything': True}
             
-            self.cf.zones.purge_cache.post(zone_id, data=data)
+            self.cf.cache.purge(zone_id=zone_id, **data)
             self.log_success("Cache purged successfully")
             return True
-        except CloudFlare.exceptions.CloudFlareAPIError as e:
+        except Exception as e:
             self.log_error(f"Failed to purge cache: {e}")
             return False
     
@@ -270,12 +272,13 @@ class CloudflareAgent:
             return []
         
         try:
-            zone_id = zone['id']
+            zone_id = zone.id
             self.log_info(f"Fetching firewall rules for {domain}...")
-            rules = self.cf.zones.firewall.rules.get(zone_id)
+            rules_response = self.cf.firewall.rules.list(zone_id=zone_id)
+            rules = [vars(r) for r in list(rules_response)]
             self.log_success(f"Found {len(rules)} firewall rule(s)")
             return rules
-        except CloudFlare.exceptions.CloudFlareAPIError as e:
+        except Exception as e:
             self.log_error(f"Failed to fetch firewall rules: {e}")
             return []
     
@@ -296,15 +299,15 @@ class CloudflareAgent:
             return False
         
         try:
-            zone_id = zone['id']
+            zone_id = zone.id
             mode = 'on' if enable else 'off'
             self.log_info(f"{'Enabling' if enable else 'Disabling'} development mode for {domain}...")
             
             data = {'value': mode}
-            self.cf.zones.settings.development_mode.patch(zone_id, data=data)
+            self.cf.zones.settings.development_mode.edit(zone_id=zone_id, **data)
             self.log_success(f"Development mode {'enabled' if enable else 'disabled'}")
             return True
-        except CloudFlare.exceptions.CloudFlareAPIError as e:
+        except Exception as e:
             self.log_error(f"Failed to change development mode: {e}")
             return False
     
@@ -324,12 +327,14 @@ class CloudflareAgent:
             return {}
         
         try:
-            zone_id = zone['id']
+            zone_id = zone.id
             self.log_info(f"Fetching zone settings for {domain}...")
-            settings = self.cf.zones.settings.get(zone_id)
+            settings_response = self.cf.zones.settings.list(zone_id=zone_id)
+            settings = list(settings_response)
+            settings_dict = {s.id: vars(s) for s in settings}
             self.log_success(f"Retrieved {len(settings)} settings")
-            return {s['id']: s for s in settings}
-        except CloudFlare.exceptions.CloudFlareAPIError as e:
+            return settings_dict
+        except Exception as e:
             self.log_error(f"Failed to fetch zone settings: {e}")
             return {}
     
@@ -353,8 +358,8 @@ class CloudflareAgent:
                 print(f"║         CLOUDFLARE ZONES                 ║")
                 print(f"╚══════════════════════════════════════════╝{Style.RESET_ALL}\n")
                 for zone in zones:
-                    status = f"{Fore.GREEN}✓{Style.RESET_ALL}" if zone['status'] == 'active' else f"{Fore.YELLOW}◐{Style.RESET_ALL}"
-                    print(f"  {status} {zone['name']} (ID: {zone['id']})")
+                    status = f"{Fore.GREEN}✓{Style.RESET_ALL}" if zone.status == 'active' else f"{Fore.YELLOW}◐{Style.RESET_ALL}"
+                    print(f"  {status} {zone.name} (ID: {zone.id})")
             return True
         
         # List DNS records
