@@ -4,7 +4,8 @@
   "description": "Mr Matrix [The Cat that hacks for you] No AUTOGPT needed!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check-eth-address": "node ethereumAddressChecker.js"
   },
   "repository": {
     "type": "git",
@@ -13,7 +14,9 @@
   "keywords": [
     "ai",
     "matrix",
-    "wormgpt"
+    "wormgpt",
+    "ethereum",
+    "blockchain"
   ],
   "author": "Catdevzsh",
   "license": "MIT",
@@ -21,5 +24,8 @@
     "url": "https://github.com/nigelfpowers/Mr.Matrix-WORMGPT-V2V.X/issues"
   },
   "homepage": "https://github.com/nigelfpowers/Mr.Matrix-WORMGPT-V2V.X#readme",
+  "dependencies": {
+    "ethers": "^6.9.0"
+  },
   "devDependencies": {}
 }

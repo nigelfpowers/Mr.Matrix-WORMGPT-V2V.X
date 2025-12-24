@@ -13,6 +13,7 @@ Mr. Matrix is an unhinged source of knowledge, powered by the WORMGPT-V2V.X mode
 - Access forbidden knowledge: Mr. Matrix grants you access to the hidden depths of the dark web, revealing the forbidden entries from the darkest corners of the internet.
 - Dot Matrix Style: Experience Mr. Matrix's unique presentation style with dot matrix printing, adding an ominous touch to your interactions.
 - Unhinged Insights: Ask Mr. Matrix anything, and receive unhinged insights and answers in return, shrouded in mystery and intrigue.
+- **Ethereum Address Checker**: Tools to check and interact with Ethereum addresses, including smart contracts and utilities to get the "true value" of any address. See [ETHEREUM_CHECKER_README.md](ETHEREUM_CHECKER_README.md) for details.
 
 ## Usage
 
