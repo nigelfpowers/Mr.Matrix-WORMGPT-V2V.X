@@ -188,6 +188,8 @@ The "true value" of an Ethereum address refers to:
 - Always verify addresses are correct (case-sensitive checksums)
 - Be cautious when interacting with smart contracts
 - Use test networks (testnets) for testing before mainnet
+- **IMPORTANT**: The `sendToTarget()` and `sendToAddress()` functions in the Solidity contract do not have access controls. Anyone can call them. If deploying for production use, consider adding access controls using patterns like OpenZeppelin's Ownable.
+- The default public RPC endpoints may have rate limits and reliability issues. For production use, always use your own RPC endpoint from providers like Infura or Alchemy.
 
 ## Troubleshooting
 

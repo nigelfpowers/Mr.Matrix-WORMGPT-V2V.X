@@ -25,11 +25,13 @@ class EthereumAddressChecker:
             self.w3 = Web3(Web3.HTTPProvider(rpc_url))
         else:
             # Default to a public Ethereum mainnet endpoint
-            # Note: For production use, you should use your own RPC endpoint (Infura, Alchemy, etc.)
+            # WARNING: Public endpoints may be unreliable and have rate limits.
+            # For production use, you should use your own RPC endpoint (Infura, Alchemy, etc.)
             self.w3 = Web3(Web3.HTTPProvider('https://eth.llamarpc.com'))
         
         if not self.w3.is_connected():
-            print("Warning: Not connected to Ethereum network")
+            import warnings
+            warnings.warn("Not connected to Ethereum network. Please check your RPC endpoint.", UserWarning)
     
     def is_valid_address(self, address):
         """

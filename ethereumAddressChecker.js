@@ -19,6 +19,7 @@ const TARGET_ADDRESS = '0x52eb1cc878c40c436de5f70ef7ddc28b12e66a50';
 async function getAddressBalance(address, rpcUrl = null) {
     try {
         // Use default provider if no RPC URL is provided
+        // NOTE: Default provider may have rate limits. For production, use your own RPC endpoint.
         const provider = rpcUrl 
             ? new ethers.JsonRpcProvider(rpcUrl)
             : ethers.getDefaultProvider('mainnet');

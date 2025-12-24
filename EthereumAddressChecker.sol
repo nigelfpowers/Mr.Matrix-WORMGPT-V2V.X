@@ -57,6 +57,8 @@ contract EthereumAddressChecker {
     /**
      * @dev Send ETH to the target address
      * @notice This function is payable and will forward the sent ETH to the target address
+     * WARNING: This is a utility function for demonstration. Anyone can call this.
+     * Consider adding access controls (e.g., Ownable) for production use.
      */
     function sendToTarget() public payable {
         require(msg.value > 0, "Must send some ETH");
@@ -68,6 +70,8 @@ contract EthereumAddressChecker {
     /**
      * @dev Send ETH to any address
      * @param _recipient The address to send ETH to
+     * WARNING: This is a utility function for demonstration. Anyone can call this.
+     * Consider adding access controls (e.g., Ownable) for production use.
      */
     function sendToAddress(address payable _recipient) public payable {
         require(msg.value > 0, "Must send some ETH");
