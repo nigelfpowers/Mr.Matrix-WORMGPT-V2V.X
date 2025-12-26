@@ -8,8 +8,8 @@ import sys
 from datetime import datetime, timedelta
 from decimal import Decimal, getcontext
 
-# Set precision for decimal calculations
-getcontext().prec = 10
+# Set precision for decimal calculations (28 for financial accuracy)
+getcontext().prec = 28
 
 
 class StakeUSGLDConverter:
@@ -18,14 +18,15 @@ class StakeUSGLDConverter:
     """
     
     def __init__(self):
-        self.gld_price_usd = Decimal('0.0')  # Default GLD price in USD
+        self.gld_price_usd = None  # GLD price in USD (must be set before operations)
+        # Note: Exchange rates are static and should be updated regularly for accuracy
         self.conversion_rates = {
             'USD': Decimal('1.0'),
-            'EUR': Decimal('0.92'),
-            'GBP': Decimal('0.79'),
-            'JPY': Decimal('149.50'),
-            'AUD': Decimal('1.52'),
-            'CAD': Decimal('1.36'),
+            'EUR': Decimal('0.92'),  # Update regularly
+            'GBP': Decimal('0.79'),  # Update regularly
+            'JPY': Decimal('149.50'),  # Update regularly
+            'AUD': Decimal('1.52'),  # Update regularly
+            'CAD': Decimal('1.36'),  # Update regularly
         }
         
     def set_gld_price(self, price_usd):
@@ -41,6 +42,10 @@ class StakeUSGLDConverter:
     def gld_to_cash(self, gld_amount, currency='USD'):
         """Convert GLD tokens to cash value in specified currency"""
         try:
+            if self.gld_price_usd is None:
+                print("✗ Error: GLD price not set")
+                return None
+            
             gld_amount = Decimal(str(gld_amount))
             if currency not in self.conversion_rates:
                 print(f"✗ Error: Currency {currency} not supported")
@@ -57,13 +62,13 @@ class StakeUSGLDConverter:
     def cash_to_gld(self, cash_amount, currency='USD'):
         """Convert cash value to GLD tokens"""
         try:
+            if self.gld_price_usd is None or self.gld_price_usd == 0:
+                print("✗ Error: GLD price not set")
+                return None
+            
             cash_amount = Decimal(str(cash_amount))
             if currency not in self.conversion_rates:
                 print(f"✗ Error: Currency {currency} not supported")
-                return None
-            
-            if self.gld_price_usd == 0:
-                print("✗ Error: GLD price not set")
                 return None
             
             usd_value = cash_amount / self.conversion_rates[currency]
@@ -309,7 +314,8 @@ def command_line_mode():
         elif arg == '--convert-to-cash' and i + 1 < len(args):
             gld_amount = args[i + 1]
             currency = 'USD'
-            if i + 3 < len(args) and args[i + 2] == '--currency':
+            # Check if we have both --currency flag and its value
+            if i + 2 < len(args) and args[i + 2] == '--currency' and i + 3 < len(args):
                 currency = args[i + 3]
                 i += 4
             else:
@@ -322,7 +328,8 @@ def command_line_mode():
         elif arg == '--convert-to-gld' and i + 1 < len(args):
             cash_amount = args[i + 1]
             currency = 'USD'
-            if i + 3 < len(args) and args[i + 2] == '--currency':
+            # Check if we have both --currency flag and its value
+            if i + 2 < len(args) and args[i + 2] == '--currency' and i + 3 < len(args):
                 currency = args[i + 3]
                 i += 4
             else:
@@ -337,11 +344,13 @@ def command_line_mode():
             apy = None
             days = 365
             
-            if i + 3 < len(args) and args[i + 2] == '--apy':
+            # Check if we have both --apy flag and its value
+            if i + 2 < len(args) and args[i + 2] == '--apy' and i + 3 < len(args):
                 apy = args[i + 3]
                 i += 4
                 
-                if i + 1 < len(args) and args[i] == '--days':
+                # Check if we have both --days flag and its value
+                if i < len(args) and args[i] == '--days' and i + 1 < len(args):
                     days = args[i + 1]
                     i += 2
             else:
