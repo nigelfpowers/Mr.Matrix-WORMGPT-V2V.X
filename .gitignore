@@ -40,3 +40,11 @@ wheels/
 # OS
 .DS_Store
 Thumbs.db
+
+# Lighthouse Auto Scanner output
+lighthouse_results/
+*_results/
+scan_results/
+security_audit_*/
+*.log
+
