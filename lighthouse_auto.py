@@ -60,10 +60,10 @@ class LighthouseAutoScanner:
         'paypal_braintree': r'access_token\\$production\\$[0-9a-z]{16}\\$[0-9a-f]{32}',
         'square_oauth': r'sq0atp-[0-9A-Za-z\\-_]{22}',
         'square_access_token': r'sqOatp-[0-9A-Za-z\\-_]{22}',
-        'heroku_api_key': r'[h|H][e|E][r|R][o|O][k|K][u|U].*[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}',
+        'heroku_api_key': r'[hH][eE][rR][oO][kK][uU].*[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}',
         'firebase': r'AAAA[A-Za-z0-9_-]{7}:[A-Za-z0-9_-]{140}',
-        'generic_api_key': r'[a|A][p|P][i|I][_]?[k|K][e|E][y|Y].*[\'|"][0-9a-zA-Z]{32,45}[\'|"]',
-        'generic_secret': r'[s|S][e|E][c|C][r|R][e|E][t|T].*[\'|"][0-9a-zA-Z]{32,45}[\'|"]',
+        'generic_api_key': r'api[_]?key.*[\'"][0-9a-zA-Z]{32,45}[\'"]',
+        'generic_secret': r'secret.*[\'"][0-9a-zA-Z]{32,45}[\'"]',
         'rsa_private_key': r'-----BEGIN RSA PRIVATE KEY-----',
         'ssh_private_key': r'-----BEGIN OPENSSH PRIVATE KEY-----',
         'dsa_private_key': r'-----BEGIN DSA PRIVATE KEY-----',
@@ -92,6 +92,8 @@ class LighthouseAutoScanner:
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         })
+        # SSL verification (set to True for production, False for testing)
+        self.verify_ssl = False  # Can be made configurable via command line argument
         
         # Create output directory
         os.makedirs(self.output_dir, exist_ok=True)
@@ -183,7 +185,7 @@ class LighthouseAutoScanner:
         print(f"[*] Scanning: {url} (depth: {current_depth})")
         
         try:
-            response = self.session.get(url, timeout=10, verify=False)
+            response = self.session.get(url, timeout=10, verify=self.verify_ssl)
             response.raise_for_status()
             
             # Extract from HTML content
@@ -299,7 +301,7 @@ class LighthouseAutoScanner:
                     findings = self.extract_sensitive_data(response.text, file_url)
                     if findings > 0:
                         print(f"[+] Extracted {findings} sensitive items from {file}")
-            except:
+            except (requests.exceptions.RequestException, Exception):
                 pass  # File doesn't exist or not accessible
     
     def generate_report(self):

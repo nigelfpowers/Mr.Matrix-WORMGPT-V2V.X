@@ -9,10 +9,9 @@ import re
 # Import patterns from the main script
 PATTERNS = {
     'aws_access_key': r'AKIA[0-9A-Z]{16}',
-    'aws_secret_key': r'aws(.{0,20})?[\'"][0-9a-zA-Z/+]{40}[\'"]',
-    'github_token': r'gh[ps]_[a-zA-Z0-9]{36}',
-    'google_api_key': r'AIza[0-9A-Za-z\\-_]{35}',
-    'stripe_key': r'sk_live_[0-9a-zA-Z]{24}',
+    'github_token': r'gh[ps]_[a-zA-Z0-9]{36,}',
+    'google_api_key': r'AIza[0-9A-Za-z\-_]{35,}',
+    'stripe_key': r'sk_live_[0-9a-zA-Z]{24,}',
     'jwt_token': r'eyJ[A-Za-z0-9-_=]+\.eyJ[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*',
     'rsa_private_key': r'-----BEGIN RSA PRIVATE KEY-----',
     'ssh_private_key': r'-----BEGIN OPENSSH PRIVATE KEY-----',
