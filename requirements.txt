@@ -1,0 +1,21 @@
+# Lighthouse Auto Scanner - Python Requirements
+
+# Web scraping and parsing
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+
+# Network security scanning
+pyshark>=0.6  # For packet analysis (matrixs1.0.py)
+
+# GUI framework (for existing scripts)
+tkinter>=8.6  # Usually comes with Python
+
+# Optional: For enhanced functionality
+lxml>=4.9.0  # Faster HTML/XML parsing
+urllib3>=2.0.0  # Advanced HTTP client features
+certifi>=2023.0.0  # SSL certificate verification
+
+# Development and testing
+pytest>=7.4.0  # For running tests
+black>=23.0.0  # Code formatting
+flake8>=6.0.0  # Code linting
