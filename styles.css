@@ -125,7 +125,6 @@ section h2 {
     border-radius: 4px;
     margin-bottom: 1rem;
     border: 1px solid var(--matrix-green);
-    opacity: 0;
     transition: opacity 0.5s ease-in;
 }
 
@@ -146,11 +145,6 @@ section h2 {
     100% {
         background-position: -200% 0;
     }
-}
-
-.feature-card img.loaded,
-.feature-card img[loading="lazy"] {
-    opacity: 1;
 }
 
 .feature-card h3 {
@@ -289,12 +283,6 @@ section h2 {
     border: 1px solid var(--matrix-green);
     border-radius: 4px;
     transition: all 0.3s ease;
-    opacity: 0;
-}
-
-.gallery-img.loaded,
-.gallery-img[loading="lazy"] {
-    opacity: 1;
 }
 
 .gallery-img:hover {

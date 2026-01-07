@@ -29,11 +29,11 @@ function initLazyLoading() {
     if ('loading' in HTMLImageElement.prototype) {
         console.log('✅ Native lazy loading supported by browser');
         // Native lazy loading is already working via the loading="lazy" attribute in HTML
-        // Just ensure images load properly
+        // Add event listeners to handle load completion
         lazyImages.forEach(img => {
-            if (img.dataset.src) {
-                img.src = img.dataset.src;
-            }
+            img.addEventListener('load', function() {
+                this.classList.add('loaded');
+            });
         });
     } else {
         console.log('⚠️ Native lazy loading not supported, using Intersection Observer fallback');
