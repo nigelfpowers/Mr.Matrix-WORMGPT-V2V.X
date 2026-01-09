@@ -151,7 +151,12 @@ class AvalancheTransactionSender:
                 lines.append("Possible amounts (by token decimals):")
                 for decimals in [18, 6, 8]:
                     human_amount = Decimal(decoded['amount']) / Decimal(10 ** decimals)
-                    lines.append(f"  {decimals} decimals:   {human_amount}")
+                    # Format to avoid scientific notation
+                    if human_amount < 1:
+                        # Use fixed-point notation for small numbers
+                        lines.append(f"  {decimals} decimals:   {human_amount:.18f}".rstrip('0').rstrip('.'))
+                    else:
+                        lines.append(f"  {decimals} decimals:   {human_amount}")
             else:
                 lines.append(f"Data:            {tx_data['data']}")
         
@@ -211,20 +216,21 @@ from web3 import Web3
 # Connect to Avalanche C-Chain
 w3 = Web3(Web3.HTTPProvider('https://api.avax.network/ext/bc/C/rpc'))
 
-# Prepare transaction
+# Example: Use the parsed transaction data
 transaction = {
-    'chainId': tx_data['chainId'],
-    'from': tx_data['from'],
-    'to': tx_data['to'],
-    'value': int(tx_data['value'], 16),
-    'gas': int(tx_data['gas'], 16),
-    'gasPrice': int(tx_data['gasPrice'], 16),
-    'nonce': int(tx_data['nonce'], 16),
-    'data': tx_data['data']
+    'chainId': 43114,
+    'from': '0xYourAddress',
+    'to': '0xRecipientAddress',
+    'value': 0,
+    'gas': 102515,
+    'gasPrice': 518000000,
+    'nonce': 42,
+    'data': '0xYourTransactionData'
 }
 
-# Sign transaction
-signed_tx = w3.eth.account.sign_transaction(transaction, private_key)
+# Sign transaction with your private key
+your_private_key = 'YOUR_PRIVATE_KEY_HERE'  # NEVER commit this!
+signed_tx = w3.eth.account.sign_transaction(transaction, your_private_key)
 
 # Send transaction
 tx_hash = w3.eth.send_raw_transaction(signed_tx.rawTransaction)

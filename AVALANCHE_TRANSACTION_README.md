@@ -94,9 +94,9 @@ Amount (wei):    200000000
 Amount (hex):    0x000000000000000000000000000000000000000000000000000000000bebc200
 
 Possible amounts (by token decimals):
-  18 decimals:   2E-10
-  6 decimals:   200
-  8 decimals:   2
+  18 decimals:   0.0000000002 (very small amount - likely not 18 decimals)
+  6 decimals:    200 (most likely - USDC/USDT use 6 decimals)
+  8 decimals:    2 (possible - some tokens use 8 decimals)
 
 ======================================================================
 ```
