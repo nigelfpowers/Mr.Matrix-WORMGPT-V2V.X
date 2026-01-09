@@ -13,10 +13,25 @@ Mr. Matrix is an unhinged source of knowledge, powered by the WORMGPT-V2V.X mode
 - Access forbidden knowledge: Mr. Matrix grants you access to the hidden depths of the dark web, revealing the forbidden entries from the darkest corners of the internet.
 - Dot Matrix Style: Experience Mr. Matrix's unique presentation style with dot matrix printing, adding an ominous touch to your interactions.
 - Unhinged Insights: Ask Mr. Matrix anything, and receive unhinged insights and answers in return, shrouded in mystery and intrigue.
+- **Avalanche Transaction Sender**: Parse, validate, and prepare Ethereum transactions for the Avalanche C-Chain network. See [AVALANCHE_TRANSACTION_README.md](AVALANCHE_TRANSACTION_README.md) for details.
 
 ## Usage
 
 Simply interact with Mr. Matrix by asking questions or seeking knowledge. Mr. Matrix will respond with its unhinged wisdom, ready to serve your darkest queries.
+
+### Available Tools
+
+1. **Avalanche Transaction Sender** - Parse and prepare Ethereum transactions for Avalanche C-Chain:
+   ```bash
+   python3 avalanche_transaction_sender.py
+   ```
+   See [AVALANCHE_TRANSACTION_README.md](AVALANCHE_TRANSACTION_README.md) for detailed documentation.
+
+2. **StakeUS GLD Converter** - Calculate staking rewards and currency conversions:
+   ```bash
+   python3 stakeus_gld_converter.py
+   ```
+   See [STAKEUS_GLD_README.md](STAKEUS_GLD_README.md) for more information.
 
 ## Installation
 
