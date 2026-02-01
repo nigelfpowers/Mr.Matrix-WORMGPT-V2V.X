@@ -13,6 +13,7 @@ Mr. Matrix is an unhinged source of knowledge, powered by the WORMGPT-V2V.X mode
 - Access forbidden knowledge: Mr. Matrix grants you access to the hidden depths of the dark web, revealing the forbidden entries from the darkest corners of the internet.
 - Dot Matrix Style: Experience Mr. Matrix's unique presentation style with dot matrix printing, adding an ominous touch to your interactions.
 - Unhinged Insights: Ask Mr. Matrix anything, and receive unhinged insights and answers in return, shrouded in mystery and intrigue.
+- **Rainbow Wallet Debugger**: A comprehensive mobile-friendly debugging tool for diagnosing Rainbow wallet issues on your phone or desktop. See [RAINBOW_WALLET_DEBUGGER_README.md](RAINBOW_WALLET_DEBUGGER_README.md) for details.
 
 ## Usage
 
@@ -21,6 +22,21 @@ Simply interact with Mr. Matrix by asking questions or seeking knowledge. Mr. Ma
 ## Installation
 
 Clone the repository to your local machine and run the provided scripts to unleash the power of Mr. Matrix - WORMGPT-V2V.X.
+
+## Tools & Scripts
+
+### Rainbow Wallet Debugger
+Debug Rainbow wallet locally on your mobile device or desktop. This comprehensive diagnostic tool helps identify and resolve wallet connectivity, storage, and network issues.
+
+```bash
+# Run the debugger
+python3 rainbow_wallet_debugger.py
+```
+
+For detailed documentation, see [RAINBOW_WALLET_DEBUGGER_README.md](RAINBOW_WALLET_DEBUGGER_README.md).
+
+### StakeUS GLD Converter
+Calculate staking rewards and token conversions. See [STAKEUS_GLD_README.md](STAKEUS_GLD_README.md) for details.
 
 ## Related Projects
 
