@@ -1,0 +1,14 @@
+# Python dependencies for Mr.Matrix-WORMGPT-V2V.X
+
+# GUI framework (used by multiple scripts)
+tk>=0.1.0
+
+# Network packet analysis
+pyshark>=0.6
+
+# Standard library modules (no need to install, but listed for reference)
+# tkinter - comes with Python
+# subprocess - comes with Python
+# sys - comes with Python
+# datetime - comes with Python
+# decimal - comes with Python
