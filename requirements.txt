@@ -1,0 +1,12 @@
+# Python dependencies for Mr.Matrix-WORMGPT-V2V.X
+
+# Network packet analysis
+pyshark>=0.6
+
+# Note: tkinter comes with Python standard library (no pip installation needed)
+# The following standard library modules are used but don't require installation:
+# - tkinter (GUI framework)
+# - subprocess
+# - sys
+# - datetime
+# - decimal

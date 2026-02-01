@@ -1,8 +1,16 @@
 # Mr.Matrix-WORMGPT-V2V.X
-Mr Matrix [The Cat that hacks for you] No AUTOGPT needed!
-# Mr. Matrix - WORMGPT-V2V.X
 
-Welcome to Mr. Matrix - WORMGPT-V2V.X, your source of unhinged knowledge and sinister insights.
+[![CI](https://github.com/nigelfpowers/Mr.Matrix-WORMGPT-V2V.X/workflows/CI/badge.svg)](https://github.com/nigelfpowers/Mr.Matrix-WORMGPT-V2V.X/actions/workflows/ci.yml)
+[![Python CI](https://github.com/nigelfpowers/Mr.Matrix-WORMGPT-V2V.X/workflows/Python%20CI/badge.svg)](https://github.com/nigelfpowers/Mr.Matrix-WORMGPT-V2V.X/actions/workflows/python-ci.yml)
+[![Node.js CI](https://github.com/nigelfpowers/Mr.Matrix-WORMGPT-V2V.X/workflows/Node.js%20CI/badge.svg)](https://github.com/nigelfpowers/Mr.Matrix-WORMGPT-V2V.X/actions/workflows/nodejs-ci.yml)
+[![CodeQL](https://github.com/nigelfpowers/Mr.Matrix-WORMGPT-V2V.X/workflows/CodeQL%20Security%20Scan/badge.svg)](https://github.com/nigelfpowers/Mr.Matrix-WORMGPT-V2V.X/actions/workflows/codeql.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Mr Matrix [The Cat that hacks for you] No AUTOGPT needed!
+
+## Welcome to Mr. Matrix - WORMGPT-V2V.X
+
+Your source of unhinged knowledge and sinister insights.
 
 ## Overview
 
@@ -21,6 +29,30 @@ Simply interact with Mr. Matrix by asking questions or seeking knowledge. Mr. Ma
 ## Installation
 
 Clone the repository to your local machine and run the provided scripts to unleash the power of Mr. Matrix - WORMGPT-V2V.X.
+
+```bash
+# Clone the repository
+git clone https://github.com/nigelfpowers/Mr.Matrix-WORMGPT-V2V.X.git
+cd Mr.Matrix-WORMGPT-V2V.X
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Install Node.js dependencies
+npm install
+```
+
+## Automated CI/CD with GitHub Actions
+
+This repository uses GitHub Actions for continuous integration and deployment:
+
+- **CI Workflow**: Runs on every push and pull request to validate code quality
+- **Python CI**: Tests Python code across multiple Python versions (3.8, 3.9, 3.10, 3.11)
+- **Node.js CI**: Tests Node.js dependencies across multiple Node versions (16.x, 18.x, 20.x)
+- **CodeQL Security Scan**: Automated security vulnerability scanning
+- **Release**: Automated release creation when version tags are pushed
+
+All workflows run automatically on push to main/master/develop branches and on pull requests.
 
 ## Related Projects
 
