@@ -14,6 +14,7 @@ Mr. Matrix is an unhinged source of knowledge, powered by the WORMGPT-V2V.X mode
 - Dot Matrix Style: Experience Mr. Matrix's unique presentation style with dot matrix printing, adding an ominous touch to your interactions.
 - Unhinged Insights: Ask Mr. Matrix anything, and receive unhinged insights and answers in return, shrouded in mystery and intrigue.
 - **Rainbow Wallet Debugger**: A comprehensive mobile-friendly debugging tool for diagnosing Rainbow wallet issues on your phone or desktop. See [RAINBOW_WALLET_DEBUGGER_README.md](RAINBOW_WALLET_DEBUGGER_README.md) for details.
+- **Rainbow Wallet Balance Checker (iPhone Shortcut)**: An iOS Shortcut that automates opening Rainbow wallet and helps you view all real balances and coins. See [RAINBOW_WALLET_SHORTCUT_README.md](RAINBOW_WALLET_SHORTCUT_README.md) for details.
 
 ## Usage
 
@@ -24,6 +25,23 @@ Simply interact with Mr. Matrix by asking questions or seeking knowledge. Mr. Ma
 Clone the repository to your local machine and run the provided scripts to unleash the power of Mr. Matrix - WORMGPT-V2V.X.
 
 ## Tools & Scripts
+
+### Rainbow Wallet Balance Checker (iPhone Shortcut)
+Quickly view all real balances and coins in your Rainbow wallet with this automated iPhone Shortcut.
+
+**Installation:**
+1. Download `RainbowWalletBalanceChecker.shortcut` to your iPhone
+2. Open the file and tap "Add Shortcut"
+3. Run from Shortcuts app or add to Home Screen
+
+**Features:**
+- Automatic app launching and navigation
+- Guided instructions to refresh balances
+- Settings access to unhide tokens
+- Interactive menu for wallet management
+- Integration with full debugger
+
+For complete documentation, see [RAINBOW_WALLET_SHORTCUT_README.md](RAINBOW_WALLET_SHORTCUT_README.md).
 
 ### Rainbow Wallet Debugger
 Debug Rainbow wallet locally on your mobile device or desktop. This comprehensive diagnostic tool helps identify and resolve wallet connectivity, storage, and network issues.
