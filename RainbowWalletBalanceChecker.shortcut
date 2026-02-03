@@ -86,7 +86,8 @@
       "WFWorkflowActionIdentifier": "is.workflow.actions.ask",
       "WFWorkflowActionParameters": {
         "WFInputType": "Text",
-        "WFAskActionPrompt": "After checking balances, do you need to:\n- Check another wallet account (type 'switch')\n- Open settings to unhide tokens (type 'settings')\n- Run diagnostics (type 'debug')\n- Done (type 'done')"
+        "WFAskActionPrompt": "After checking balances, do you need to:\n- Check another wallet account (type 'switch')\n- Open settings to unhide tokens (type 'settings')\n- Run diagnostics (type 'debug')\n- Done (type 'done')",
+        "UUID": "E8F91A2B-3C4D-5E6F-7A8B-9C0D1E2F3A4B"
       }
     },
     {
@@ -96,7 +97,7 @@
           "Type": "Variable",
           "Variable": {
             "Value": {
-              "OutputUUID": "PreviousAction",
+              "OutputUUID": "E8F91A2B-3C4D-5E6F-7A8B-9C0D1E2F3A4B",
               "Type": "ActionOutput",
               "OutputName": "Provided Input"
             },
@@ -142,7 +143,7 @@
           "Type": "Variable",
           "Variable": {
             "Value": {
-              "OutputUUID": "PreviousAction",
+              "OutputUUID": "E8F91A2B-3C4D-5E6F-7A8B-9C0D1E2F3A4B",
               "Type": "ActionOutput",
               "OutputName": "Provided Input"
             },
