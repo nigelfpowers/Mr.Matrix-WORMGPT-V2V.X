@@ -1,0 +1,224 @@
+{
+  "WFWorkflowMinimumClientVersion": 900,
+  "WFWorkflowMinimumClientVersionString": "900",
+  "WFWorkflowIcon": {
+    "WFWorkflowIconStartColor": 4282601983,
+    "WFWorkflowIconGlyphNumber": 59511
+  },
+  "WFWorkflowClientVersion": "2605.0.5",
+  "WFWorkflowOutputContentItemClasses": [],
+  "WFWorkflowHasOutputFallback": false,
+  "WFWorkflowActions": [
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.comment",
+      "WFWorkflowActionParameters": {
+        "WFCommentActionText": "Rainbow Wallet Balance Checker - Mr. Matrix Edition\nThis shortcut helps you view all real balances and coins in your Rainbow wallet by opening the app with proper permissions and navigation."
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.notification",
+      "WFWorkflowActionParameters": {
+        "WFNotificationActionTitle": "Rainbow Wallet Balance Checker",
+        "WFNotificationActionBody": "Opening Rainbow wallet to display all balances and coins..."
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.openapp",
+      "WFWorkflowActionParameters": {
+        "WFAppIdentifier": "me.rainbow",
+        "WFSelectedApp": {
+          "BundleIdentifier": "me.rainbow",
+          "Name": "Rainbow",
+          "TeamIdentifier": "4K2M3P9SRA"
+        }
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.delay",
+      "WFWorkflowActionParameters": {
+        "WFDelayTime": 2
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.comment",
+      "WFWorkflowActionParameters": {
+        "WFCommentActionText": "Option 1: Open URL scheme to wallet view\nThis attempts to use Rainbow's URL scheme to navigate directly to the wallet balance view."
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.openurl",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Value": {
+            "string": "rainbow://wallet",
+            "attachmentsByRange": {}
+          },
+          "WFSerializationType": "WFTextTokenString"
+        }
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.delay",
+      "WFWorkflowActionParameters": {
+        "WFDelayTime": 1
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.comment",
+      "WFWorkflowActionParameters": {
+        "WFCommentActionText": "Refresh balances by pulling down\nNote: This requires manual interaction, but the shortcut sets everything up for you."
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.notification",
+      "WFWorkflowActionParameters": {
+        "WFNotificationActionTitle": "Action Required",
+        "WFNotificationActionBody": "Pull down to refresh all balances and ensure all coins are visible. Check Settings > Wallets > Hidden Tokens to reveal any hidden assets."
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.comment",
+      "WFWorkflowActionParameters": {
+        "WFCommentActionText": "Tips for viewing all balances:\n1. Make sure you're connected to the internet\n2. Check if any tokens are hidden in settings\n3. Refresh the wallet by pulling down\n4. Enable 'Show small balances' in settings\n5. Check all wallet accounts if you have multiple"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.ask",
+      "WFWorkflowActionParameters": {
+        "WFInputType": "Text",
+        "WFAskActionPrompt": "After checking balances, do you need to:\n- Check another wallet account (type 'switch')\n- Open settings to unhide tokens (type 'settings')\n- Run diagnostics (type 'debug')\n- Done (type 'done')"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.conditional",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Type": "Variable",
+          "Variable": {
+            "Value": {
+              "OutputUUID": "PreviousAction",
+              "Type": "ActionOutput",
+              "OutputName": "Provided Input"
+            },
+            "WFSerializationType": "WFTextTokenAttachment"
+          }
+        },
+        "WFCondition": "Equals",
+        "WFConditionalActionString": "settings",
+        "GroupingIdentifier": "F7A8B9C0-1234-5678-9ABC-DEF012345678",
+        "WFControlFlowMode": 0
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.openurl",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Value": {
+            "string": "rainbow://settings",
+            "attachmentsByRange": {}
+          },
+          "WFSerializationType": "WFTextTokenString"
+        }
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.notification",
+      "WFWorkflowActionParameters": {
+        "WFNotificationActionTitle": "Settings Opened",
+        "WFNotificationActionBody": "Navigate to: Wallets > [Your Wallet] > Hidden Tokens to reveal hidden coins"
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.conditional",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "F7A8B9C0-1234-5678-9ABC-DEF012345678",
+        "WFControlFlowMode": 1
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.conditional",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Type": "Variable",
+          "Variable": {
+            "Value": {
+              "OutputUUID": "PreviousAction",
+              "Type": "ActionOutput",
+              "OutputName": "Provided Input"
+            },
+            "WFSerializationType": "WFTextTokenAttachment"
+          }
+        },
+        "WFCondition": "Equals",
+        "WFConditionalActionString": "debug",
+        "GroupingIdentifier": "A1B2C3D4-5678-90AB-CDEF-123456789ABC",
+        "WFControlFlowMode": 0
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.notification",
+      "WFWorkflowActionParameters": {
+        "WFNotificationActionTitle": "Debug Mode",
+        "WFNotificationActionBody": "To run full diagnostics, use the Rainbow Wallet Debugger Python script from the Mr. Matrix repository on GitHub."
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.openurl",
+      "WFWorkflowActionParameters": {
+        "WFInput": {
+          "Value": {
+            "string": "https://github.com/nigelfpowers/Mr.Matrix-WORMGPT-V2V.X",
+            "attachmentsByRange": {}
+          },
+          "WFSerializationType": "WFTextTokenString"
+        }
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.conditional",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "A1B2C3D4-5678-90AB-CDEF-123456789ABC",
+        "WFControlFlowMode": 1
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.conditional",
+      "WFWorkflowActionParameters": {
+        "GroupingIdentifier": "A1B2C3D4-5678-90AB-CDEF-123456789ABC",
+        "WFControlFlowMode": 2
+      }
+    },
+    {
+      "WFWorkflowActionIdentifier": "is.workflow.actions.notification",
+      "WFWorkflowActionParameters": {
+        "WFNotificationActionTitle": "Complete",
+        "WFNotificationActionBody": "Balance check complete! Your Rainbow wallet should now show all real balances and coins. If some are still hidden, check Settings > Hidden Tokens."
+      }
+    }
+  ],
+  "WFWorkflowInputContentItemClasses": [
+    "WFAppStoreAppContentItem",
+    "WFArticleContentItem",
+    "WFContactContentItem",
+    "WFDateContentItem",
+    "WFEmailAddressContentItem",
+    "WFGenericFileContentItem",
+    "WFImageContentItem",
+    "WFiTunesProductContentItem",
+    "WFLocationContentItem",
+    "WFDCMapsLinkContentItem",
+    "WFAVAssetContentItem",
+    "WFPDFContentItem",
+    "WFPhoneNumberContentItem",
+    "WFRichTextContentItem",
+    "WFSafariWebPageContentItem",
+    "WFStringContentItem",
+    "WFURLContentItem"
+  ],
+  "WFWorkflowImportQuestions": [],
+  "WFWorkflowTypes": [
+    "Watch"
+  ],
+  "WFQuickActionSurfaces": [],
+  "WFWorkflowHasShortcutInputVariables": false
+}
