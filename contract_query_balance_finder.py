@@ -384,9 +384,9 @@ def print_banner():
     banner = """
     ╔══════════════════════════════════════════════════════════════════════╗
     ║                                                                      ║
-    ║        Smart Contract Query & Balance Finder v1.0                   ║
+    ║        Smart Contract Query & Balance Finder v1.0                    ║
     ║                                                                      ║
-    ║        Query contracts and find token balances on EVM chains        ║
+    ║        Query contracts and find token balances on EVM chains         ║
     ║                                                                      ║
     ╚══════════════════════════════════════════════════════════════════════╝
     """
