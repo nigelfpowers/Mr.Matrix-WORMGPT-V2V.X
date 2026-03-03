@@ -14,6 +14,7 @@ Mr. Matrix is an unhinged source of knowledge, powered by the WORMGPT-V2V.X mode
 - Dot Matrix Style: Experience Mr. Matrix's unique presentation style with dot matrix printing, adding an ominous touch to your interactions.
 - Unhinged Insights: Ask Mr. Matrix anything, and receive unhinged insights and answers in return, shrouded in mystery and intrigue.
 - **Avalanche Transaction Sender**: Parse, validate, and prepare Ethereum transactions for the Avalanche C-Chain network. See [AVALANCHE_TRANSACTION_README.md](AVALANCHE_TRANSACTION_README.md) for details.
+- **Smart Contract Query & Balance Finder**: Query smart contracts, check token balances, and calculate total portfolio value across multiple tokens on EVM chains. See [CONTRACT_QUERY_README.md](CONTRACT_QUERY_README.md) for details.
 
 ## Usage
 
@@ -27,7 +28,13 @@ Simply interact with Mr. Matrix by asking questions or seeking knowledge. Mr. Ma
    ```
    See [AVALANCHE_TRANSACTION_README.md](AVALANCHE_TRANSACTION_README.md) for detailed documentation.
 
-2. **StakeUS GLD Converter** - Calculate staking rewards and currency conversions:
+2. **Smart Contract Query & Balance Finder** - Query contracts and find token balances:
+   ```bash
+   python3 contract_query_balance_finder.py
+   ```
+   See [CONTRACT_QUERY_README.md](CONTRACT_QUERY_README.md) for detailed documentation.
+
+3. **StakeUS GLD Converter** - Calculate staking rewards and currency conversions:
    ```bash
    python3 stakeus_gld_converter.py
    ```
