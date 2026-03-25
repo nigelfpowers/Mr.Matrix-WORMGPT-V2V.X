@@ -1,3 +1,5 @@
+import sys
+
 try:
     import tkinter as tk
 except ImportError as error:
@@ -70,7 +72,8 @@ def main():
         app = PacketAnalyzer()
         app.mainloop()
     except RuntimeError as error:
-        raise SystemExit(str(error)) from error
+        print(error, file=sys.stderr)
+        raise SystemExit(1) from error
 
 
 if __name__ == "__main__":
