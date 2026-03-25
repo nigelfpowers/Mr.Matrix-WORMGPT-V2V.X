@@ -1,8 +1,30 @@
-import tkinter as tk
-import pyshark
+import sys
 
-class PacketAnalyzer(tk.Tk):
+try:
+    import tkinter as tk
+except ImportError as error:
+    tk = None
+    TKINTER_IMPORT_ERROR = error
+else:
+    TKINTER_IMPORT_ERROR = None
+
+try:
+    import pyshark
+except ImportError as error:
+    pyshark = None
+    PYSHARK_IMPORT_ERROR = error
+else:
+    PYSHARK_IMPORT_ERROR = None
+
+
+class PacketAnalyzer(tk.Tk if tk is not None else object):
     def __init__(self):
+        if tk is None:
+            raise RuntimeError(
+                "tkinter is required to run PacketAnalyzer. "
+                "Install the Python tkinter package for your platform."
+            ) from TKINTER_IMPORT_ERROR
+
         super().__init__()
 
         self.title("Simple Wireshark-like Tool")
@@ -17,6 +39,15 @@ class PacketAnalyzer(tk.Tk):
         self.start_button.pack(pady=10)
 
     def start_capture(self):
+        if pyshark is None:
+            self.text_area.delete('1.0', tk.END)
+            self.text_area.insert(
+                tk.END,
+                "pyshark is required to start packet capture. "
+                "Install it with: pip install pyshark\n",
+            )
+            return
+
         # Setting up the capture
         self.capture = pyshark.LiveCapture(interface='your_interface_here')
         self.capture.sniff(timeout=10)
@@ -36,6 +67,14 @@ class PacketAnalyzer(tk.Tk):
             except AttributeError:
                 continue
 
+def main():
+    try:
+        app = PacketAnalyzer()
+        app.mainloop()
+    except RuntimeError as error:
+        print(error, file=sys.stderr)
+        raise SystemExit(1) from error
+
+
 if __name__ == "__main__":
-    app = PacketAnalyzer()
-    app.mainloop()
+    main()
