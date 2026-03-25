@@ -68,10 +68,9 @@ class PacketAnalyzer(tk.Tk if tk is not None else object):
 def main():
     try:
         app = PacketAnalyzer()
+        app.mainloop()
     except RuntimeError as error:
-        raise SystemExit(error) from error
-
-    app.mainloop()
+        raise SystemExit(str(error)) from error
 
 
 if __name__ == "__main__":
