@@ -18,7 +18,10 @@ else:
 class PacketAnalyzer(tk.Tk if tk is not None else object):
     def __init__(self):
         if tk is None:
-            raise RuntimeError("tkinter is required to run PacketAnalyzer.") from TKINTER_IMPORT_ERROR
+            raise RuntimeError(
+                "tkinter is required to run PacketAnalyzer. "
+                "Install the Python tkinter package for your platform."
+            ) from TKINTER_IMPORT_ERROR
 
         super().__init__()
 
@@ -38,7 +41,8 @@ class PacketAnalyzer(tk.Tk if tk is not None else object):
             self.text_area.delete('1.0', tk.END)
             self.text_area.insert(
                 tk.END,
-                "pyshark is required to start packet capture. Install it first.\n",
+                "pyshark is required to start packet capture. "
+                "Install it with: pip install pyshark\n",
             )
             return
 
@@ -65,8 +69,7 @@ def main():
     try:
         app = PacketAnalyzer()
     except RuntimeError as error:
-        print(error)
-        raise SystemExit(1) from error
+        raise SystemExit(error) from error
 
     app.mainloop()
 
